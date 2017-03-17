@@ -41,10 +41,11 @@ namespace cmd_rpg
         {
             Time += pTime;
         }
-        public void TelePlayer(Point pPos)
+
+        public void CheatTelePlayer(Position pPos)
         {
             Game.WriteLine("You teleported to: " + pPos);
-            PlayerData.Location = pPos;
+            PlayerData.Pos = pPos;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cmd_rpg
 {
-    public abstract class Action
+    abstract class Action
     {
         #region Parameters
         public abstract int StaminaMod  { get; set; }
@@ -16,7 +16,7 @@ namespace cmd_rpg
         #endregion
 
         #region Methods
-        public abstract void Perform();
+        public abstract void Perform(GameData pGD);
         #endregion
     }
 }

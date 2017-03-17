@@ -48,31 +48,31 @@ namespace cmd_rpg
             get; set;
         }
 
-        public override void Perform()
+        public override void Perform(GameData pGD)
         {
             switch (Dir)
             {
                 case Direction.Up:
-                    Player.Location = Player.Location.Add(0, 1);
+                    Player.Pos = Player.Pos.Add(0, 1);
                     Game.WriteLine("You move north!");
                     break;
                 case Direction.Right:
-                    Player.Location = Player.Location.Add(1, 0);
+                    Player.Pos = Player.Pos.Add(1, 0);
                     Game.WriteLine("You move east!");
                     break;
                 case Direction.Down:
-                    Player.Location = Player.Location.Add(0, -1);
+                    Player.Pos = Player.Pos.Add(0, -1);
                     Game.WriteLine("You move south!");
                     break;
                 case Direction.Left:
-                    Player.Location = Player.Location.Add(-1, 0);
+                    Player.Pos = Player.Pos.Add(-1, 0);
                     Game.WriteLine("You move west!");
                     break;
             }
 
-            MapSegment vSegm = MapData.GetSegment(Player.Location);
+            MapSegment vSegm = MapData.GetSegment(Player.Pos);
             Game.WriteLine(string.Format("You entered the {0}", vSegm.MapBiome));
-            MapData.BuildLand(Player.Location);
+            MapData.BuildLand(Player.Pos);
         }
     }
 }

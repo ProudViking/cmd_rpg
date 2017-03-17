@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +24,10 @@ namespace cmd_rpg
         {
             Segments = new List<MapSegment>();
             Rand = pRand;
-            BuildLand(Point.Empty);
+            BuildLand(new Position(0,0));
         }
 
-        public void BuildLand(Point pLoc, int pDist = 1)
+        public void BuildLand(Position pLoc, int pDist = 1)
         {
             //pLoc marks the player location
             //We need to build all land around the player so that when the player travels in any direction we already have the land ready.
@@ -42,7 +41,7 @@ namespace cmd_rpg
             {
                 for (int x = pLoc.X - pDist; x <= pLoc.X + pDist; x++)
                 {
-                    Point vSegLoc = new Point(x, y);
+                    Position vSegLoc = new Position(x, y);
                     if (!LandExists(vSegLoc))
                     {
                         MapSegment vSegment = new MapSegment(Rand, vSegLoc);
@@ -52,11 +51,11 @@ namespace cmd_rpg
                 }
             }
         }
-        public MapSegment GetSegment(Point pLoc)
+        public MapSegment GetSegment(Position pLoc)
         {
             return Segments.FirstOrDefault(v => v.Location == pLoc);
         }
-        public bool LandExists(Point pLoc)
+        public bool LandExists(Position pLoc)
         {
             return GetSegment(pLoc) != null;
         }
@@ -68,14 +67,14 @@ namespace cmd_rpg
 
         public Biome MapBiome   { get; set; }
         public int Trees        { get; private set; }
-        public Point Location   { get; private set; }
+        public Position Location   { get; private set; }
 
-        public MapSegment(Random pRand, Point pLoc)
+        public MapSegment(Random pRand, Position pLoc)
         {
             Generate(pRand, pLoc);
         }
 
-        public void Generate(Random pRand, Point pLoc)
+        public void Generate(Random pRand, Position pLoc)
         {
             MapBiome = (Biome)pRand.Next(3);
             Location = pLoc;

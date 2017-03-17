@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cmd_rpg
 {
     partial class Sleep : Action
     {
-        private Player Player       { get; set; }
-        private GameData GD         { get; set; }
-
         public override int HealthMod
         {
             get; set;
@@ -28,17 +21,16 @@ namespace cmd_rpg
             get; set;
         }
 
-        public Sleep(int pHours, GameData pGD)
+        public Sleep(int pHours)
         {
             TimeMod = TimeSpan.FromHours(pHours);
-            Player = pGD.PlayerData;
         }
 
-        public override void Perform()
+        public override void Perform(GameData pGD)
         {
             Game.WriteLine("You sleep for " + TimeMod.ToString());
-            Player.ModStam((int)TimeMod.TotalHours + 10);
-            GD.ModTime(TimeMod);
+            pGD.PlayerData.ModStam((int)TimeMod.TotalHours + 10);
+            pGD.ModTime(TimeMod);
         }
     }
 }

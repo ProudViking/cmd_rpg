@@ -15,20 +15,49 @@ namespace cmd_rpg
         static void Main(string[] args)
         {
             WriteLine("Welcome adventurer!");
-            Player vPlayer = new Player(Request("What is your name?"));
+
+            //Enter your playerdata
+            Creatures.Gender vGender = Creatures.Gender.Unknown;
+            while(vGender == Creatures.Gender.Unknown)
+            {
+                var vRes = Enum.TryParse(Request("Are you male or female?"), out vGender);
+                if (!vRes || vGender == Creatures.Gender.Unknown)
+                    WriteLine("Invalid gender, valid genders: Male/Female");
+            }
+
+            string vName = Request("What is your name?");
+
+            Classes.Class vClass =  Classes.Class.Unknown;
+            while (vClass == Classes.Class.Unknown)
+            {
+                var vRes = Enum.TryParse(Request("What is your class?"), out vClass);
+                if (!vRes || vClass == Classes.Class.Unknown)
+                    WriteLine("Invalid class, valid classes: Warrior, Ranger, Mage");
+            }
+
+            //Create base playerdata
+            Player vPlayer = new Player(vName, vGender, vClass);
             WriteLine("Greetings " + vPlayer.Name + Environment.NewLine);
+
+            //Enter a name for your world
             string vMapName = Request("What is the name of these lands?");
             WriteLine("Welcome to the lands of " + vMapName);
+
+            //Create Base Gamedata
             GameData vGameData = new GameData(vPlayer, vMapName);
             vGameData.State = GameState.Freeroam;
+
+            //Enter game loop
             GameLoop(vGameData);
+
+            //Exited from game loop.
             WriteLine("Good bye adventurer.");
         }
 
         static void GameLoop(GameData pGameData)
         {
             WriteLine(String.Format("Location: {0}\tHP: {1}\tStamina: {2}\tTime: {3}\tDate: {4}", 
-                pGameData.PlayerData.Location,      //0
+                pGameData.PlayerData.Pos,           //0
                 pGameData.PlayerData.Health,        //1
                 pGameData.PlayerData.Stamina,       //2
                 pGameData.Time.ToShortTimeString(), //3
@@ -100,7 +129,7 @@ namespace cmd_rpg
                     break;
             }
 
-            vAction.Perform();
+            pGD.PlayerData.PerformAction(vAction);
             return false;
         }
 
@@ -110,7 +139,8 @@ namespace cmd_rpg
             if (pCmdSegments.Length >= 2 && int.TryParse(pCmdSegments[1], out vSleepAmount))
                 if (vSleepAmount <= 24)
                 {
-                    pGameData.PlayerSleep(TimeSpan.FromHours(vSleepAmount));
+                    Action vAction = new Sleep(vSleepAmount);
+                    pGameData.PlayerData.PerformAction(vAction);
                     return;
                 }
 
@@ -156,14 +186,14 @@ namespace cmd_rpg
 
     static class CustomExtensions
     {
-        public static Point Add(this Point pPoint, Point pPoint2)
+        public static Position Add(this Position pPosition, Position pPosition2)
         {
-            return new Point(pPoint.X + pPoint2.X, pPoint.Y + pPoint2.Y);
+            return new Position(pPosition.X + pPosition2.X, pPosition.Y + pPosition2.Y);
         }
 
-        public static Point Add (this Point pPoint, int pX, int pY)
+        public static Position Add (this Position pPosition, int pX, int pY)
         {
-            return new Point(pPoint.X + pX, pPoint.Y + pY);
+            return new Position(pPosition.X + pX, pPosition.Y + pY);
         }
     }
 }
