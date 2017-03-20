@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cmd_rpg.Items
+﻿namespace cmd_rpg.Items
 {
     public enum WearableSlot
     {
@@ -41,6 +35,7 @@ namespace cmd_rpg.Items
         #region Item Info
         public override string Name             { get; set; }
         public override int Weight              { get; set; }
+        public override int BaseCost            { get; set; }
         public override ItemQuality Quality     { get; set; }
         public override int LevelReq            { get; set; }
         public override Classes.Class ClassReq  { get; set; }

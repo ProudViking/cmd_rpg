@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cmd_rpg.Creatures
+﻿namespace cmd_rpg.Creatures
 {
     public enum Gender
     {
@@ -17,6 +11,7 @@ namespace cmd_rpg.Creatures
     {
         public abstract Gender Gender { get; set; }
         public abstract string Name { get; set; }
+        public abstract int Level { get; set; }
         public abstract int Health { get; set; }
         public abstract int MaxHealth { get; set; }
         public abstract int Stamina { get; set; }

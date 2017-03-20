@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cmd_rpg.Items
+﻿namespace cmd_rpg.Items
 {
     public enum ItemQuality  //Rarity in WoW'esque color scheme
     {
@@ -20,6 +14,7 @@ namespace cmd_rpg.Items
         #region Item Info
         public abstract string Name { get; set; }
         public abstract int Weight { get; set; }
+        public abstract int BaseCost { get; set; }
         public abstract ItemQuality Quality { get; set; }
         #endregion
 
