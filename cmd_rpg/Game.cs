@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using cmd_rpg.Actions;
 
 namespace cmd_rpg
 {
@@ -70,6 +65,8 @@ namespace cmd_rpg
 
             var vCmdSegments = vCmd.Split(' ');
 
+            Actions.ActionParser.Parse(vCmdSegments[0]);
+
             switch(vCmdSegments[0])
             {
                 case "go":
@@ -81,7 +78,12 @@ namespace cmd_rpg
                 case "rest":
                     Sleep(vCmdSegments, pGameData);
                     break;
+                case "Scan":
+                    ScanArea vScan = new ScanArea(ScanArea.ScanMode.Normal);
+                    pGameData.PlayerData.PerformAction(vScan);
+                    break;
                 case "quit":
+                case "exit":
                     return;
             }
 
@@ -99,7 +101,7 @@ namespace cmd_rpg
         /// <returns></returns>
         static bool Go(string[] pSubCommmands, GameData pGD)
         {
-            Action vAction = null;
+            Actions.Action vAction = null;
 
             switch(pSubCommmands[1])
             {
@@ -107,25 +109,25 @@ namespace cmd_rpg
                 case "up":
                 case "north":
                 case "n":
-                    vAction = new Travel(Travel.Direction.Up, pGD);
+                    vAction = new Travel(Direction.Up);
                     break;
                 case "3":
                 case "right":
                 case "east":
                 case "e":
-                    vAction = new Travel(Travel.Direction.Right, pGD);
+                    vAction = new Travel(Direction.Right);
                     break;
                 case "6":
                 case "down":
                 case "south":
                 case "s":
-                    vAction = new Travel(Travel.Direction.Down, pGD);
+                    vAction = new Travel(Direction.Down);
                     break;
                 case "9":
                 case "left":
                 case "west":
                 case "w":
-                    vAction = new Travel(Travel.Direction.Left, pGD);
+                    vAction = new Travel(Direction.Left);
                     break;
             }
 
@@ -139,7 +141,7 @@ namespace cmd_rpg
             if (pCmdSegments.Length >= 2 && int.TryParse(pCmdSegments[1], out vSleepAmount))
                 if (vSleepAmount <= 24)
                 {
-                    Action vAction = new Sleep(vSleepAmount);
+                    Actions.Action vAction = new Sleep(vSleepAmount);
                     pGameData.PlayerData.PerformAction(vAction);
                     return;
                 }
@@ -147,7 +149,6 @@ namespace cmd_rpg
             Console.WriteLine("Sleep must be in format: :> sleep <hours> max 24");
             Console.WriteLine("example: :> sleep 8");
         }
-
 
         #region Input
         static string Request(string pRequest)

@@ -2,9 +2,9 @@
 
 namespace cmd_rpg.Actions
 {
-    partial class Sleep : Action
+    partial class MakeCamp : Action
     {
-        public override string ValidCalls { get; }
+        public override string ValidCalls { get { return "Camp MakeCamp";  } }
         public override int HealthMod
         {
             get; set;
@@ -22,16 +22,9 @@ namespace cmd_rpg.Actions
             get; set;
         }
 
-        public Sleep(int pHours)
-        {
-            TimeMod = TimeSpan.FromHours(pHours);
-        }
-
         public override void Perform(GameData pGD)
         {
-            Game.WriteLine("You sleep for " + TimeMod.ToString());
-            pGD.PlayerData.ModStam((int)TimeMod.TotalHours + 10);
-            pGD.ModTime(TimeMod);
+            throw new NotImplementedException("MakeCamp.Perform() not implemented yet!");
         }
     }
 }

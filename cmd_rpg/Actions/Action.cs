@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cmd_rpg
+namespace cmd_rpg.Actions
 {
     abstract class Action
     {
         #region Parameters
-        public abstract int StaminaMod  { get; set; }
-        public abstract int HealthMod   { get; set; }
-        public abstract int ManaMod     { get; set; }
-        public abstract TimeSpan TimeMod{ get; set; }
+        public abstract string ValidCalls { get; }
+        public abstract int StaminaMod { get; set; }
+        public abstract int HealthMod { get; set; }
+        public abstract int ManaMod { get; set; }
+        public abstract TimeSpan TimeMod { get; set; }
         #endregion
 
         #region Methods

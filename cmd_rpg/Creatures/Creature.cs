@@ -1,4 +1,6 @@
-﻿namespace cmd_rpg.Creatures
+﻿using cmd_rpg.Actions;
+
+namespace cmd_rpg.Creatures
 {
     public enum Gender
     {

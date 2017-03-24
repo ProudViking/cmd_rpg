@@ -2,6 +2,7 @@
 using cmd_rpg.Creatures;
 using System.Collections.Generic;
 using cmd_rpg.Items;
+using cmd_rpg.Actions;
 using System.Diagnostics;
 
 namespace cmd_rpg
@@ -22,7 +23,7 @@ namespace cmd_rpg
         {
             get
             {
-                //TODO: add dynamic max weight depending on player str and buffs
+                //Todo: add dynamic max weight depending on player str and buffs
                 switch (PlayerClass)
                 {
                     case Classes.Class.Warrior:
@@ -50,7 +51,7 @@ namespace cmd_rpg
 
                 return vWeight;
             }
-        }            //Todo: make improvements to weight system
+        }
         public Classes.Class PlayerClass{ get; set; }
         public List<Wearable> Wearables { get; set; }
         public List<Item> Inventory     { get; set; }
@@ -119,7 +120,7 @@ namespace cmd_rpg
             {
                 Random vRandom = new Random();
                 Game.WriteLine("You over exerted yourself and passed out!");
-                Action vPassout = new Sleep(vRandom.Next(5, 8));
+                Actions.Action vPassout = new Sleep(vRandom.Next(5, 8));
                 PerformAction(vPassout);
             }
 
@@ -147,7 +148,7 @@ namespace cmd_rpg
             return true;
         }
 
-        public override void PerformAction(Action pAction)
+        public override void PerformAction(Actions.Action pAction)
         {
             pAction.Perform(GD);
         }

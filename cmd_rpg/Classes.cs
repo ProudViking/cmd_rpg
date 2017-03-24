@@ -20,7 +20,6 @@ Wears all types of armor";
             public static int BaseHP      = 150;  //Level 1 HP
             public static int BaseStam    = 110;  //Level 1 Stamina
             public static int BaseMana    = 0;    //Level 1 Mana Warriors can't use spells
-            public static int 
         }
 
         public static class Ranger
